@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -22,6 +24,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
+  fs.writeFileSync('./swagger.json', JSON.stringify(document));
   await app.listen(3000);
 }
 bootstrap();
